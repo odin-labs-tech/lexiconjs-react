@@ -1,0 +1,59 @@
+{
+  "name": "lexicon-react",
+  "description": "The javascript SDK for the lexicon translator.",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/odin-labs-tech/lexicon-react"
+  },
+  "author": "Odin Labs, LLC",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.test.*"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint --fix '**/*.{cjs,js,ts}'",
+    "format": "prettier --write --ignore-unknown .",
+    "prepare": "husky install",
+    "prepublishOnly": "yarn build",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "@tsconfig/node20": "^20.1.2",
+    "@tsconfig/react-native": "^3.0.2",
+    "@types/react": "^18.2.45",
+    "@types/react-native": "^0.72.8",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-config-universe": "11.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-native": "^0.73.1",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2",
+    "vite-tsconfig-paths": "^4.2.1",
+    "vitest": "^0.34.6"
+  },
+  "dependencies": {
+    "axios": "^1.6.2"
+  }
+}

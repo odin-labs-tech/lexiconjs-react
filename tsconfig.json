@@ -1,0 +1,10 @@
+{
+	"extends": "@tsconfig/react-native/tsconfig.json",
+	"include": ["src", "tests", "global.d.ts"],
+	"compilerOptions": {
+		"lib": ["es5", "es6", "dom"],
+		"paths": {
+			"@lexicon/react": ["./src"]
+		}
+	}
+}
