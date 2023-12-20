@@ -7,7 +7,7 @@ import type { Language } from '../types';
 /** Accepts a string and translates it to the desired language */
 export const useTranslation = (
   text: string,
-  { from, to }: Omit<Partial<Parameters<typeof translate>[1]>, 'token'>
+  { from, to }: Omit<Partial<Parameters<typeof translate>[1]>, 'token'> = {}
 ) => {
   // Extract our configuration from the context
   const { defaultLanguage, targetLanguage, cacheTranslationsOnDevice, token } =

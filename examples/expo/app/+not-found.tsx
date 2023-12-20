@@ -1,18 +1,18 @@
 import { Link, Stack } from 'expo-router';
 
-import { Text, Box } from '@/components';
+import { Text, View } from '@/components';
 
 export default function NotFoundScreen() {
   return (
     <>
       <Stack.Screen options={{ title: 'Oops!' }} />
-      <Box>
+      <View>
         <Text>This screen doesn't exist.</Text>
 
         <Link href="/">
-          <Text color="blue">Go to home screen!</Text>
+          <Text>Go to home screen!</Text>
         </Link>
-      </Box>
+      </View>
     </>
   );
 }

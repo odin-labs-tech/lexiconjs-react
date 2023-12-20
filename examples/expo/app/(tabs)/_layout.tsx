@@ -1,4 +1,5 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useTranslation } from '@lexiconjs/react';
 import { Tabs } from 'expo-router';
 import React from 'react';
 
@@ -23,14 +24,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
+          title: useTranslation('Tab One'),
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
       <Tabs.Screen
         name="two"
         options={{
-          title: 'Tab Two',
+          title: useTranslation('Tab Two'),
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />

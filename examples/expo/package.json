@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
-    "@lexiconjs/react": "^0.0.4",
+    "@lexiconjs/react": "^0.0.5",
     "@react-navigation/native": "^6.0.2",
     "expo": "~50.0.0-preview.4",
     "expo-font": "~11.10.0",

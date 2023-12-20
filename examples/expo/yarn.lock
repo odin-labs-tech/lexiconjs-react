@@ -1865,10 +1865,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@lexiconjs/react@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@lexiconjs/react/-/react-0.0.4.tgz#92fef3422c353bb7858115a9f8148078377d28c7"
-  integrity sha512-JwAJISpKcF2tXiO+gudsAys+oMOPX1r4g07hFbu56DdXZ80rjVfHzZMl1QaRp5r8hHkiid4nxGN+zvcsoZV7GA==
+"@lexiconjs/react@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@lexiconjs/react/-/react-0.0.5.tgz#a6b4409776864add74464bade9ceb15ded401496"
+  integrity sha512-cisRbgBnw09O3RXqIC/DJHufwdLS8/t/Rk4pvu+cg+ilfTAMg9vfl/W/bYDrOUvloymS1pnC9t/8not6UBzmjg==
   dependencies:
     axios "^1.6.2"
     react-native-mmkv "^2.11.0"
