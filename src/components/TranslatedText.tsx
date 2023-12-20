@@ -3,7 +3,7 @@ import { Children, memo } from 'react';
 import { TranslatedTextHelper } from './TranslatedTextHelper';
 import type { useTranslation } from '../hooks';
 
-type Props = Component & Parameters<typeof useTranslation>[1];
+type Props = React.PropsWithChildren & Parameters<typeof useTranslation>[1];
 
 /**
  * Translate a block of text and returns the text as a string. Most the time you should be using your own custom `<Text>` component to abstract this
@@ -12,7 +12,7 @@ type Props = Component & Parameters<typeof useTranslation>[1];
  * If nested elements are included within the `<TranslatedText>` they will be ignored and only the top-level text elements will be translated.
  * This should be fine in most scenarios because you should be using additional `<TranslatedText>` components within the nested elements.
  *
- * For example, if I had a `<Text>` component provided by my component library, I could create a `<CustomTextComponent>` leveraging translations as...
+ * For example, if you had a `<Text>` component provided by my component library, you could create a `<CustomTextComponent>` leveraging translations as...
  *
  * ```
  * const CustomTextComponent = ({ children }) => {
@@ -26,7 +26,7 @@ type Props = Component & Parameters<typeof useTranslation>[1];
  * };
  * ```
  *
- * Then, if I was nesting this to apply special styling (like bolding an inner word) I could do something like...
+ * Then, if you were nesting this to apply special styling (like bolding an inner word) you could do something like...
  *
  * ```
  * <CustomTextComponent>
@@ -35,14 +35,14 @@ type Props = Component & Parameters<typeof useTranslation>[1];
  * ```
  */
 export const TranslatedText = memo(({ children, ...options }: Props) => {
-	// Loop over the children to see if it's an array and determine which elements are simply strings (and should be translated)
-	// and which elements are nested elements (which should be left alone)
-	return Children.map(children, (child) => {
-		// If the child is a string, we need to translate it
-		if (typeof child === 'string')
-			return <TranslatedTextHelper {...options}>{child}</TranslatedTextHelper>;
+  // Loop over the children to see if it's an array and determine which elements are simply strings (and should be translated)
+  // and which elements are nested elements (which should be left alone)
+  return Children.map(children, (child) => {
+    // If the child is a string, we need to translate it
+    if (typeof child === 'string')
+      return <TranslatedTextHelper {...options}>{child}</TranslatedTextHelper>;
 
-		// Otherwise, it's a normal element and we just return the child as-is to avoid crashing
-		return child;
-	});
+    // Otherwise, it's a normal element and we just return the child as-is to avoid crashing
+    return child;
+  });
 });

@@ -9,11 +9,11 @@
   </p>
 </p>
 
-[![npm version](https://img.shields.io/npm/v/@lexicon/react.svg)](https://www.npmjs.com/package/@lexicon/react)
+[![npm version](https://img.shields.io/npm/v/@lexiconjs/react.svg)](https://www.npmjs.com/package/@lexiconjs/react)
 
 # Official Lexicon SDK for React
 
-This is the Lexicon SDK for React: `@lexicon/react`
+This is the Lexicon SDK for React: `@lexiconjs/react`
 
 It provides a a simple and automatic way to translate all of your websites / apps by leveraging AI to translate your content (without impacting your existing workflows).
 
