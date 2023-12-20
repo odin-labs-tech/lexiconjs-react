@@ -38,15 +38,24 @@ export const translate = async (text: string, { to, from, token }: Options) => {
     });
 
     /** Extract the translation */
-    const translatedText = result.data;
+    const translation = result.data;
 
     // If we didn't find any data, throw an error
-    if (!translatedText) throw new Error('Failed to fetch translation');
+    if (!translation) throw new Error('Failed to fetch translation');
     // Return our translation
-    return translatedText;
+    return {
+      translation,
+      isSuccess: true,
+    };
   } catch (err) {
-    console.error('[@lexiconjs/react] There was a problem translating the text', err);
+    console.error(
+      '[@lexiconjs/react] There was a problem translating the text - falling back to original text...',
+      err
+    );
     // Fall back to the provided text if we failed to fetch the translation
-    return text;
+    return {
+      translation: text,
+      isSuccess: false,
+    };
   }
 };

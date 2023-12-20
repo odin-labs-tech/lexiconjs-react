@@ -1,10 +1,10 @@
-import { Heading, Text, VStack } from '@/components';
+import { View, Text } from '@/components';
 
 export default function TabOneScreen() {
   return (
-    <VStack space="sm" margin="$16">
-      <Heading>Tab One</Heading>
+    <View style={{ margin: 12, display: 'flex', flexDirection: 'column' }}>
+      <Text style={{ fontSize: 24 }}>Tab One</Text>
       <Text>How are you doing today?</Text>
-    </VStack>
+    </View>
   );
 }

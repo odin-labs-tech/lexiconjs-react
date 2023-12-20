@@ -1,6 +1,4 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { config } from '@gluestack-ui/config';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { TranslationProvider } from '@lexiconjs/react';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -45,11 +43,9 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <TranslationProvider token="ADD_TOKEN_HERE" defaultLanguage="en">
-      <GluestackUIProvider config={config}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-      </GluestackUIProvider>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
     </TranslationProvider>
   );
 }

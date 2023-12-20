@@ -1,3 +1,2 @@
-export { VStack, Box } from '@gluestack-ui/themed';
+export { View } from 'react-native';
 export { Text } from './Text';
-export { Heading } from './Heading';

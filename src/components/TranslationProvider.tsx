@@ -1,7 +1,7 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 
-import { USER_LOCALE } from '../constants';
 import { TranslationContext, TranslationContextProps } from '../contexts';
+import { useLocale } from '../hooks';
 
 type Props = React.PropsWithChildren &
   TranslationContextProps &
@@ -16,15 +16,18 @@ export const TranslationProvider = memo(
     children,
     token,
     defaultLanguage = 'en',
-    targetLanguage = USER_LOCALE,
+    targetLanguage,
     cacheTranslationsOnDevice = true,
   }: Props) => {
+    /** Check the user's locale preference via the device settings */
+    const locale = useLocale();
+
     return (
       <TranslationContext.Provider
         value={{
           token,
           defaultLanguage,
-          targetLanguage,
+          targetLanguage: targetLanguage || locale,
           cacheTranslationsOnDevice,
         }}>
         {children}

@@ -12,7 +12,10 @@ export const useTranslation = (
   // Extract our configuration from the context
   const { defaultLanguage, targetLanguage, cacheTranslationsOnDevice, token } =
     useContext(TranslationContext);
-  const [translation, setTranslation] = useState<string | undefined>();
+  // If we are in the same language, just return the text straight away, otherwise we leave it undefined until we set it
+  const [translation, setTranslation] = useState<string | undefined>(
+    from === to ? text : undefined
+  );
 
   /** The language we want to translate from (fall back to context) */
   const fromLanguage = (from || defaultLanguage) as Language;
@@ -29,6 +32,9 @@ export const useTranslation = (
     // If text is not a string, the library is being using incorrectly
     if (typeof text !== 'string')
       throw new Error('[@lexiconjs/react] useTranslation text must be a string');
+
+    // If the we are already in the user's preferred language, just return
+    if (from === to) return;
 
     // Check whether we're caching the translations on the device
     if (cacheTranslationsOnDevice) {
@@ -48,13 +54,13 @@ export const useTranslation = (
       to: toLanguage,
       token,
     })
-      .then((translatedText) => {
+      .then(({ translation, isSuccess }) => {
         // Set the state once we finish translating
-        setTranslation(translatedText);
+        setTranslation(translation);
 
-        // And store it in the cache if we're caching
-        if (cacheTranslationsOnDevice)
-          cache.set({ language: toLanguage, originalText: text, translatedText });
+        // And store it in the cache if we're caching and the query was successful
+        if (isSuccess && cacheTranslationsOnDevice)
+          cache.set({ language: toLanguage, originalText: text, translatedText: translation });
       })
       .catch((err) => {
         console.error('[@lexiconjs/react] There was a problem translating the text', err);

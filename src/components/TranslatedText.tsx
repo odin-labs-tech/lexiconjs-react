@@ -1,4 +1,4 @@
-import { Children, memo } from 'react';
+import React, { Children, memo } from 'react';
 
 import { TranslatedTextHelper } from './TranslatedTextHelper';
 import type { useTranslation } from '../hooks';

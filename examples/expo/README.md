@@ -16,7 +16,7 @@ Then, launch the application in your browser or on a local device to see the res
 
 First, the TranslationProvider is included within the `app/_layout.tsx` file. This allows us to use any Lexicon hooks or components within the application.
 
-Then, we have abstracted our two primary text components from the `tamagui` component library in our `components/Heading.tsx` and `components/Text.tsx` files. We find that this helps simplify the usage and avoid any mistakes in implementation. However, you could just wrap anything you'd like to translate directly instead.
+Then, we have abstracted our two primary text components from the `tamagui` component library in our `components/Text.tsx` file. We find that this helps simplify the usage and avoid any mistakes in implementation. However, you could just wrap anything you'd like to translate directly instead.
 
 ## Learn More
 
