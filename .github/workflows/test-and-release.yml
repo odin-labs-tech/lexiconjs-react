@@ -4,6 +4,8 @@ on:
   push:
     branches: ['**']
 
+permissions: write-all
+
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
@@ -27,13 +29,13 @@ jobs:
       - name: Install deps
         run: yarn install --immutable
 
-      # Build our packages
-      - name: Build packages
-        run: yarn -r build
+      # Build our package
+      - name: Build package
+        run: yarn build
 
-      # Test our packages
-      - name: Test packages
-        run: yarn -r test
+      # Test our package
+      - name: Test package
+        run: yarn test
 
       # Use Changesets to create a release pull request or publish to npm
       - name: Create Release Pull Request or Publish to npm
