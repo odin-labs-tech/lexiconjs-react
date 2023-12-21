@@ -1,4 +1,4 @@
-name: Test and Release
+name: Test and release
 
 on:
   push:
@@ -8,7 +8,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   test-and-release:
-    name: Test and Release
+    name: Test and release
     runs-on: ubuntu-latest
 
     steps:
