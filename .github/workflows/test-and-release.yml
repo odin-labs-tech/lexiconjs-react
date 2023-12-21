@@ -37,6 +37,7 @@ jobs:
 
       # Use Changesets to create a release pull request or publish to npm
       - name: Create pull request OR publish to npm
+        if: ${{ github.ref == 'refs/heads/main' }}
         uses: changesets/action@v1
         with:
           publish: yarn changeset publish
