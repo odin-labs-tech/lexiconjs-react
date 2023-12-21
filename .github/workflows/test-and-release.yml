@@ -4,8 +4,6 @@ on:
   push:
     branches: ['**']
 
-permissions: write-all
-
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
