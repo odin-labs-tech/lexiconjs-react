@@ -17,10 +17,12 @@
       "supportsTablet": true
     },
     "android": {
+      "kotlinVersion": 17,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.lexiconjs.example"
     },
     "web": {
       "bundler": "metro",

@@ -26,7 +26,7 @@ export const useTranslation = (
     // If the token was not set, throw an error
     if (!token)
       throw new Error(
-        '[@lexiconjs/react] Please provide the token from your lexiconjs.com dashboard'
+        '[@lexiconjs/react] Please provide the `token` from your lexiconjs.com dashboard'
       );
 
     // If text is not a string, the library is being using incorrectly
@@ -34,7 +34,7 @@ export const useTranslation = (
       throw new Error('[@lexiconjs/react] useTranslation text must be a string');
 
     // If the we are already in the user's preferred language, just return
-    if (from === to) return;
+    if (fromLanguage === toLanguage) return;
 
     // Check whether we're caching the translations on the device
     if (cacheTranslationsOnDevice) {

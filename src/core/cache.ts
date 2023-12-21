@@ -1,11 +1,5 @@
-import { MMKV } from 'react-native-mmkv';
-
+import { storage } from './storage';
 import { Language } from '../types';
-
-/** Initialize our storage object */
-const storage = new MMKV({
-  id: 'translations',
-});
 
 /** A helper method used to hash our strings into something easily stored / checked */
 const hashString = (str: string) => {
@@ -41,10 +35,10 @@ export const cache = {
     /** Hash the text so we can use it as a key */
     const hash = hashString(originalText);
     // Retrieve the translation from our cache
-    return storage.getString(`${language}_${hash}`);
+    return storage.get(`${language}_${hash}`);
   },
   /** Clear the cache */
   clear: () => {
-    storage.clearAll();
+    storage.clear();
   },
 };

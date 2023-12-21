@@ -39,10 +39,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@lexiconjs/react@^0.0.0":
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/@lexiconjs/react/-/react-0.0.0.tgz#83f8d7f320ed1379899e1796c60218a787481dcc"
-  integrity sha512-qNrZUbmA/9bZMATw2lRSeSbZk89HgDX6zh833XEe22fo8/QbbIU4fRCOq9AdyvDV/UIqPo6s8hbbah4IkSMy6w==
+"@lexiconjs/react@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@lexiconjs/react/-/react-0.0.12.tgz#efdd90abf592b8a1fca90d0d1766c95dbbe7c34e"
+  integrity sha512-HeVP6OpqPodpQwWQO1Wb6sgYdw4Hsbhk5/i88lFs9t34r4opBxV7HqLOvXWcYZYQag8vvz+LyUrJ5I8QtL/IDQ==
   dependencies:
     axios "^1.6.2"
     react-native-mmkv "^2.11.0"
