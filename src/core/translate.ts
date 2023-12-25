@@ -9,7 +9,7 @@ type Options = {
    *
    * Defaults to value of `defaultLanguage` prop of `<TranslationProvider>`
    */
-  from: Language;
+  from?: Language;
   /**
    * *Optional* - The target language that we are trying to convert the text to
    *
