@@ -23,6 +23,8 @@ type Options = {
 /** Translates a provided string into the desired language */
 export const translate = async (text: string, { to, from, token }: Options) => {
   try {
+    console.log('[@lexiconjs/react] Translating text...', { text, from, to });
+
     // If we didn't cache the translation, we need to fetch it from the API
     const result = await axios({
       method: 'GET',

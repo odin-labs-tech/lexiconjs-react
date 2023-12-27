@@ -1,9 +1,10 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { TranslationProvider } from '@lexiconjs/react';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+
+import { TranslationProvider } from '../dist';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -42,7 +43,7 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <TranslationProvider token="ADD_TOKEN_HERE" defaultLanguage="en">
+    <TranslationProvider defaultLanguage="en-US" token="ADD_TOKEN_HERE">
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
