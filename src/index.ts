@@ -1,2 +1,3 @@
 export { TranslatedText, TranslationProvider } from './components';
-export { useTranslation } from './hooks';
+export { useTranslation, useTranslator } from './hooks';
+export type { TranslationOptions } from './hooks';

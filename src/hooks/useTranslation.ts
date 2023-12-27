@@ -1,14 +1,11 @@
 import { useContext, useState, useEffect, useMemo } from 'react';
 
-import { useTranslator } from './useTranslator';
+import { useTranslator, TranslationOptions } from './useTranslator';
 import { TranslationContext } from '../contexts';
 import type { Language } from '../types';
 
 /** Accepts a string and translates it to the desired language */
-export const useTranslation = (
-  text: string,
-  { from, to }: Parameters<ReturnType<typeof useTranslator>['translate']>[1] = {}
-) => {
+export const useTranslation = (text: string, { from, to, ...options }: TranslationOptions = {}) => {
   // Extract our configuration from the context
   const { defaultLanguage, targetLanguage, ignoreDefaultLanguageCountry } =
     useContext(TranslationContext);
@@ -33,11 +30,11 @@ export const useTranslation = (
   );
 
   useEffect(() => {
-    console.log('TRANSLATE', { text, fromLanguage, toLanguage });
     // Translate the text
     translate(text, {
       from: fromLanguage,
       to: toLanguage,
+      ...options,
     })
       .then(({ translation: translatedText }) => {
         // Set the state once we finish translating

@@ -4,6 +4,9 @@ import { TranslationContext } from '../contexts';
 import { translate as translateMethod, cache } from '../core';
 import type { Language } from '../types';
 
+/** The options available to pass to our translation methods / component */
+export type TranslationOptions = Omit<Partial<Parameters<typeof translateMethod>[1]>, 'token'>;
+
 /** Returns the translate method to allow for manual translation logic */
 export const useTranslator = () => {
   // Extract our configuration from the context
@@ -19,7 +22,7 @@ export const useTranslator = () => {
   const translate = useCallback(
     async (
       text: string,
-      { from, to }: Omit<Partial<Parameters<typeof translateMethod>[1]>, 'token'> = {}
+      { from, to, ...options }: TranslationOptions = {}
     ): Promise<{ translation: string; isSuccess: boolean }> => {
       // If the token was not set, throw an error
       if (!token)
@@ -57,6 +60,7 @@ export const useTranslator = () => {
           from: fromLanguage,
           to: toLanguage,
           token,
+          ...options,
         });
 
         // And store it in the cache if we're caching and the query was successful
