@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <TranslationProvider defaultLanguage="en" token="ADD_TOKEN_HERE">
+        <TranslationProvider defaultLanguage="en-US" token="ADD_TOKEN_HERE">
           {children}
         </TranslationProvider>
       </body>

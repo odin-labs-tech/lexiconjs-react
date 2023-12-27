@@ -42,7 +42,7 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <TranslationProvider token="ADD_TOKEN_HERE" defaultLanguage="en">
+    <TranslationProvider defaultLanguage="en-US" token="ADD_TOKEN_HERE">
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>

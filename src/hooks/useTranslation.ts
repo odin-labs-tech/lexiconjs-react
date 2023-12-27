@@ -1,73 +1,51 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useMemo } from 'react';
 
+import { useTranslator, TranslationOptions } from './useTranslator';
 import { TranslationContext } from '../contexts';
-import { translate, cache } from '../core';
 import type { Language } from '../types';
 
 /** Accepts a string and translates it to the desired language */
-export const useTranslation = (
-  text: string,
-  { from, to }: Omit<Partial<Parameters<typeof translate>[1]>, 'token'> = {}
-) => {
+export const useTranslation = (text: string, { from, to, ...options }: TranslationOptions = {}) => {
   // Extract our configuration from the context
-  const { defaultLanguage, targetLanguage, cacheTranslationsOnDevice, token } =
+  const { defaultLanguage, targetLanguage, ignoreDefaultLanguageCountry } =
     useContext(TranslationContext);
-  // If we are in the same language, just return the text straight away, otherwise we leave it undefined until we set it
-  const [translation, setTranslation] = useState<string | undefined>(
-    from === to ? text : undefined
-  );
+  const { translate } = useTranslator();
 
   /** The language we want to translate from (fall back to context) */
-  const fromLanguage = (from || defaultLanguage) as Language;
+  const fromLanguage = useMemo(
+    () => from || (defaultLanguage as Language),
+    [from, defaultLanguage]
+  );
   /** The language we want to translate to (fall back to context) */
-  const toLanguage = (to || targetLanguage) as Language;
+  const toLanguage = useMemo(() => to || (targetLanguage as Language), [to, targetLanguage]);
+
+  // If we are in the same language, just return the text straight away, otherwise we leave it undefined until we set it
+  const [translation, setTranslation] = useState<string | undefined>(
+    // If we're ignoring the country, just check the base language
+    (ignoreDefaultLanguageCountry && fromLanguage.split('-')[0] === toLanguage.split('-')[0]) ||
+      // Otherwise, compare the entire locale
+      fromLanguage === toLanguage
+      ? text
+      : undefined
+  );
 
   useEffect(() => {
-    // If the token was not set, throw an error
-    if (!token)
-      throw new Error(
-        '[@lexiconjs/react] Please provide the `token` from your lexiconjs.com dashboard'
-      );
-
-    // If text is not a string, the library is being using incorrectly
-    if (typeof text !== 'string')
-      throw new Error('[@lexiconjs/react] useTranslation text must be a string');
-
-    // If the we are already in the user's preferred language, just return
-    if (fromLanguage === toLanguage) return;
-
-    // Check whether we're caching the translations on the device
-    if (cacheTranslationsOnDevice) {
-      // If so, check whether the translation already exists in the cache
-      const cachedTranslation = cache.get({ language: toLanguage, originalText: text });
-      // If we found the translation, return it
-      if (cachedTranslation) {
-        // Set the state to our cached result and return early
-        setTranslation(cachedTranslation);
-        return;
-      }
-    }
-
     // Translate the text
     translate(text, {
       from: fromLanguage,
       to: toLanguage,
-      token,
+      ...options,
     })
-      .then(({ translation, isSuccess }) => {
+      .then(({ translation: translatedText }) => {
         // Set the state once we finish translating
-        setTranslation(translation);
-
-        // And store it in the cache if we're caching and the query was successful
-        if (isSuccess && cacheTranslationsOnDevice)
-          cache.set({ language: toLanguage, originalText: text, translatedText: translation });
+        setTranslation(translatedText);
       })
       .catch((err) => {
         console.error('[@lexiconjs/react] There was a problem translating the text', err);
         // Fall back to the provided text if we failed to translate
         setTranslation(text);
       });
-  }, [text, from, to]);
+  }, [translate, text, fromLanguage, toLanguage]);
 
   return translation;
 };

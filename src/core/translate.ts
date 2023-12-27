@@ -16,12 +16,18 @@ type Options = {
    * Defaults to value of `targetLanguage` prop of `<TranslationProvider>`
    */
   to: Language;
+  /**
+   * Some context to the provide the translation (very useful when translating a single word without any surrounding words to give it context).
+   *
+   * For example, if you're translating the word "bank" from English to French, you can provide the context of "river" or "money" to get the correct translation.
+   */
+  context?: string;
   /** The issued token used to authenticate with the service (see lexiconjs.com dashboard) */
   token: string;
 };
 
 /** Translates a provided string into the desired language */
-export const translate = async (text: string, { to, from, token }: Options) => {
+export const translate = async (text: string, { to, from, context, token }: Options) => {
   try {
     // If we didn't cache the translation, we need to fetch it from the API
     const result = await axios({
@@ -34,6 +40,7 @@ export const translate = async (text: string, { to, from, token }: Options) => {
         text,
         from,
         to,
+        context,
       },
     });
 

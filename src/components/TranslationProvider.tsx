@@ -15,9 +15,10 @@ export const TranslationProvider = memo(
   ({
     children,
     token,
-    defaultLanguage = 'en',
+    defaultLanguage = 'en-US',
     targetLanguage,
     cacheTranslationsOnDevice = true,
+    ignoreDefaultLanguageCountry = true,
   }: Props) => {
     /** Check the user's locale preference via the device settings */
     const locale = useLocale();
@@ -29,6 +30,7 @@ export const TranslationProvider = memo(
           defaultLanguage,
           targetLanguage: targetLanguage || locale,
           cacheTranslationsOnDevice,
+          ignoreDefaultLanguageCountry,
         }}>
         {children}
       </TranslationContext.Provider>

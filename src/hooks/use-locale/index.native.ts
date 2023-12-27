@@ -15,7 +15,7 @@ export const useLocale = () => {
         : NativeModules.I18nManager.localeIdentifier;
 
     // Only use the first portion of the locale and fall back to English
-    return detectedLocale?.split('-')[0] || 'en';
+    return detectedLocale || 'en';
   }, []);
 
   return locale as Language;

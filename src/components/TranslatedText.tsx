@@ -1,9 +1,9 @@
 import React, { Children, memo } from 'react';
 
 import { TranslatedTextHelper } from './TranslatedTextHelper';
-import type { useTranslation } from '../hooks';
+import type { TranslationOptions } from '../hooks';
 
-type Props = React.PropsWithChildren & Parameters<typeof useTranslation>[1];
+type Props = React.PropsWithChildren & TranslationOptions;
 
 /**
  * Translate a block of text and returns the text as a string. Most the time you should be using your own custom `<Text>` component to abstract this

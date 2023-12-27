@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 
-import { useTranslation } from '../hooks';
+import { useTranslation, TranslationOptions } from '../hooks';
 
-type Props = Parameters<typeof useTranslation>[1] & {
+type Props = TranslationOptions & {
   /** The string child to translate */
   children: string;
 };
