@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 const languages = countries.getSupportedLanguages();
 export default function PageOne() {
+  const [language, setLanguage] = useState('en'); // ['en', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'zh'
   const [text, setText] = useState('How are you doing?');
   const translatedText = useDebounce(text, 500);
 
@@ -19,7 +20,9 @@ export default function PageOne() {
             Select an option
           </label>
           <select
-            id="countries"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            id="languages"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option selected>Choose a locale</option>
             {languages.map((language) => (
@@ -50,8 +53,8 @@ export default function PageOne() {
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Translated text
           </label>
-          <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-            <TranslatedText>{translatedText}</TranslatedText>
+          <p className="flex item-center justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-6 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto rounded-xl border bg-gray-200 p-">
+            <TranslatedText to={language as any}>{translatedText}</TranslatedText>
           </p>
         </div>
         {/* <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
