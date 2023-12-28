@@ -33,6 +33,7 @@ export const translate = async (text: string, { to, from, context, token }: Opti
       headers: {
         // @ts-ignore - Custom API key header to authenticate with the service
         'x-api-key': token,
+        'content-type': 'application/json',
       },
       body: JSON.stringify({
         text,
@@ -43,7 +44,7 @@ export const translate = async (text: string, { to, from, context, token }: Opti
     });
 
     /** Extract the translation */
-    const translation = (result?.json?.() as any)?.translation;
+    const translation = ((await result?.json?.()) as any)?.translation;
 
     // If we didn't find any data, throw an error
     if (!translation) throw new Error('Failed to fetch translation');
