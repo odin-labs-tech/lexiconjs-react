@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { config } from '../config';
 import { Language } from '../types';
 
@@ -30,22 +28,22 @@ type Options = {
 export const translate = async (text: string, { to, from, context, token }: Options) => {
   try {
     // If we didn't cache the translation, we need to fetch it from the API
-    const result = await axios({
-      method: 'GET',
-      url: `${config.api.baseUrl}/translate`,
+    const result = await fetch(`${config.api.baseUrl}/translate`, {
+      method: 'POST',
       headers: {
+        // @ts-ignore - Custom API key header to authenticate with the service
         'x-api-key': token,
       },
-      data: {
+      body: JSON.stringify({
         text,
         from,
         to,
         context,
-      },
+      }),
     });
 
     /** Extract the translation */
-    const translation = result.data;
+    const translation = (result?.json?.() as any)?.translation;
 
     // If we didn't find any data, throw an error
     if (!translation) throw new Error('Failed to fetch translation');

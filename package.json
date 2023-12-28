@@ -1,7 +1,7 @@
 {
   "name": "@lexiconjs/react",
   "description": "The javascript SDK for the lexicon translator.",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/odin-labs-tech/lexicon-react"
@@ -56,7 +56,6 @@
     "vitest": "^0.34.6"
   },
   "dependencies": {
-    "axios": "^1.6.2",
     "nanoid": "^5.0.4",
     "react-native-mmkv": "^2.11.0"
   },
