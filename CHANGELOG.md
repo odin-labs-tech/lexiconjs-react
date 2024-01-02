@@ -1,5 +1,15 @@
 # @lexiconjs/react
 
+## 0.2.0
+
+### Minor Changes
+
+- e8b7230: Added the ability to disable translations for a given block of text
+
+### Patch Changes
+
+- 597a84b: Updated API call to use POST and swapped out axios.
+
 ## 0.1.3
 
 ### Patch Changes
