@@ -5,7 +5,10 @@ import { TranslationContext } from '../contexts';
 import type { Language } from '../types';
 
 /** Accepts a string and translates it to the desired language */
-export const useTranslation = (text: string, { from, to, ...options }: TranslationOptions = {}) => {
+export const useTranslation = (
+  text: string,
+  { from, to, disableTranslation, ...options }: TranslationOptions = {}
+) => {
   // Extract our configuration from the context
   const { defaultLanguage, targetLanguage, ignoreDefaultLanguageCountry } =
     useContext(TranslationContext);
@@ -30,6 +33,12 @@ export const useTranslation = (text: string, { from, to, ...options }: Translati
   );
 
   useEffect(() => {
+    // If translations are disabled, just return text as is
+    if (disableTranslation) {
+      setTranslation(text);
+      return;
+    }
+
     // Translate the text
     translate(text, {
       from: fromLanguage,

@@ -1,11 +1,14 @@
-import { useContext, useState, useCallback } from 'react';
+import { useContext, useCallback } from 'react';
 
 import { TranslationContext } from '../contexts';
 import { translate as translateMethod, cache } from '../core';
 import type { Language } from '../types';
 
 /** The options available to pass to our translation methods / component */
-export type TranslationOptions = Omit<Partial<Parameters<typeof translateMethod>[1]>, 'token'>;
+export type TranslationOptions = Omit<Partial<Parameters<typeof translateMethod>[1]>, 'token'> & {
+  /** Whether we should disable the translation for this particular element (useful when passing in text you'd rather leave alone) */
+  disableTranslation?: boolean;
+};
 
 /** Returns the translate method to allow for manual translation logic */
 export const useTranslator = () => {
@@ -22,7 +25,7 @@ export const useTranslator = () => {
   const translate = useCallback(
     async (
       text: string,
-      { from, to, ...options }: TranslationOptions = {}
+      { from, to, ...options }: Omit<TranslationOptions, 'disableTranslation'> = {}
     ): Promise<{ translation: string; isSuccess: boolean }> => {
       // If the token was not set, throw an error
       if (!token)

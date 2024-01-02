@@ -34,7 +34,10 @@ type Props = React.PropsWithChildren & TranslationOptions;
  * </CustomTextComponent>
  * ```
  */
-export const TranslatedText = memo(({ children, ...options }: Props) => {
+export const TranslatedText = memo(({ children, disableTranslation, ...options }: Props) => {
+  // If translations are disabled, just return children as-is
+  if (disableTranslation) return children;
+
   // Loop over the children to see if it's an array and determine which elements are simply strings (and should be translated)
   // and which elements are nested elements (which should be left alone)
   return Children.map(children, (child) => {
