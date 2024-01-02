@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 const languages = countries.getSupportedLanguages();
 export default function PageOne() {
-  const [language, setLanguage] = useState('en'); // ['en', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'zh'
+  const [language, setLanguage] = useState('en-US');
   const [text, setText] = useState('How are you doing?');
   const translatedText = useDebounce(text, 500);
 
