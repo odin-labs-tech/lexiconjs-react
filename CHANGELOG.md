@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 1.0.0
+
+### Major Changes
+
+- 154bc67: First major release! Added contextual translations, addditional examples, and improved caching.
+
 ## 0.2.0
 
 ### Minor Changes
