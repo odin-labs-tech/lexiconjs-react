@@ -42,7 +42,13 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <TranslationProvider defaultLanguage="en-US" token="ADD_TOKEN_HERE">
+    <TranslationProvider
+      defaultLanguage="en-US"
+      token="ADD_TOKEN_HERE"
+      // You shouldn't need this props in production (we automatically determine targetLanguage based on device settings)
+      targetLanguage="es-ES"
+      // You can also leave out the debug prop in production
+      debug>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>

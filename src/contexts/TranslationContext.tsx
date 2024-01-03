@@ -39,6 +39,8 @@ export type TranslationContextProps = {
    * Defaults to `true`
    */
   ignoreDefaultLanguageCountry?: boolean;
+  /** *Optional* - Whether we should output some debug logs to the console */
+  debug?: boolean;
 };
 
 // ---------------------- START MAIN ---------------------- //

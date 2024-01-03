@@ -25,7 +25,7 @@ export const useTranslator = () => {
   const translate = useCallback(
     async (
       text: string,
-      { from, to, ...options }: Omit<TranslationOptions, 'disableTranslation'> = {}
+      { from, to, context, ...options }: Omit<TranslationOptions, 'disableTranslation'> = {}
     ): Promise<{ translation: string; isSuccess: boolean }> => {
       // If the token was not set, throw an error
       if (!token)
@@ -50,7 +50,11 @@ export const useTranslator = () => {
         // Check whether we're caching the translations on the device
         if (cacheTranslationsOnDevice) {
           // If so, check whether the translation already exists in the cache
-          const cachedTranslation = cache.get({ language: toLanguage, originalText: text });
+          const cachedTranslation = cache.get({
+            language: toLanguage,
+            originalText: text,
+            context,
+          });
           // If we found the translation, return it
           if (cachedTranslation) {
             // Set the state to our cached result and return early
@@ -63,12 +67,18 @@ export const useTranslator = () => {
           from: fromLanguage,
           to: toLanguage,
           token,
+          context,
           ...options,
         });
 
         // And store it in the cache if we're caching and the query was successful
         if (isSuccess && cacheTranslationsOnDevice)
-          cache.set({ language: toLanguage, originalText: text, translatedText: translation });
+          cache.set({
+            language: toLanguage,
+            originalText: text,
+            context,
+            translatedText: translation,
+          });
 
         // Return the translation
         return { translation, isSuccess };

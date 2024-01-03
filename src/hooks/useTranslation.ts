@@ -1,40 +1,25 @@
-import { useContext, useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
+import { useTranslationContext } from './useTranslationContext';
 import { useTranslator, TranslationOptions } from './useTranslator';
-import { TranslationContext } from '../contexts';
-import type { Language } from '../types';
+
+export type UseTranslationProps = TranslationOptions;
 
 /** Accepts a string and translates it to the desired language */
-export const useTranslation = (
-  text: string,
-  { from, to, disableTranslation, ...options }: TranslationOptions = {}
-) => {
-  // Extract our configuration from the context
-  const { defaultLanguage, targetLanguage, ignoreDefaultLanguageCountry } =
-    useContext(TranslationContext);
+export const useTranslation = (text: string, options: UseTranslationProps = {}) => {
   const { translate } = useTranslator();
 
-  /** The language we want to translate from (fall back to context) */
-  const fromLanguage = useMemo(
-    () => from || (defaultLanguage as Language),
-    [from, defaultLanguage]
-  );
-  /** The language we want to translate to (fall back to context) */
-  const toLanguage = useMemo(() => to || (targetLanguage as Language), [to, targetLanguage]);
+  // Extract our configuration from the context
+  const { toLanguage, fromLanguage, needsTranslation } = useTranslationContext(options);
 
-  // If we are in the same language, just return the text straight away, otherwise we leave it undefined until we set it
+  // If we don't need to translate this item, just return the text as is
   const [translation, setTranslation] = useState<string | undefined>(
-    // If we're ignoring the country, just check the base language
-    (ignoreDefaultLanguageCountry && fromLanguage.split('-')[0] === toLanguage.split('-')[0]) ||
-      // Otherwise, compare the entire locale
-      fromLanguage === toLanguage
-      ? text
-      : undefined
+    !needsTranslation ? text : undefined
   );
 
   useEffect(() => {
-    // If translations are disabled, just return text as is
-    if (disableTranslation) {
+    // If we don't need to translate this text, just return
+    if (!needsTranslation) {
       setTranslation(text);
       return;
     }
