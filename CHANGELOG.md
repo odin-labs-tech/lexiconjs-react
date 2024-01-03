@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 1.1.0
+
+### Minor Changes
+
+- 7840688: Added Skeleton loading functionality.
+
 ## 1.0.0
 
 ### Major Changes
