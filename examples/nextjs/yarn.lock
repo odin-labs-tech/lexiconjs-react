@@ -68,9 +68,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lexiconjs/react@npm:^0.1.6":
-  version: 0.1.6
-  resolution: "@lexiconjs/react@npm:0.1.6"
+"@lexiconjs/react@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@lexiconjs/react@npm:1.0.0"
   dependencies:
     nanoid: "npm:^5.0.4"
     react-native-mmkv: "npm:^2.11.0"
@@ -78,7 +78,7 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-native: "*"
-  checksum: e9cee26e8e9a3593bf184fb070564435a23d2a1541c3ea151067202820131d4116d071d929ffb70d47bde68a5df4139c700137020af165a9aa3eba31a7e59388
+  checksum: 3936c09b5f0ee1c86551f9e0dc41527a54db395b61e4b92feb59b357cf9701189397293fbc1b9eecb4ba3f62f88a31d6b5a28b13303f61541ee5bbe5c2e4c716
   languageName: node
   linkType: hard
 
@@ -1016,7 +1016,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "lexicon-example-nextjs@workspace:."
   dependencies:
-    "@lexiconjs/react": "npm:^0.1.6"
+    "@lexiconjs/react": "npm:^1.0.0"
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
