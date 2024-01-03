@@ -1,5 +1,6 @@
 import React, { Children, cloneElement, memo, useState, useEffect, isValidElement } from 'react';
 
+import { Skeleton } from './skeleton';
 import { TranslationOptions, useTranslator, useTranslationContext } from '../hooks';
 
 export type TranslatedTextProps = React.PropsWithChildren &
@@ -30,6 +31,16 @@ export type TranslatedTextProps = React.PropsWithChildren &
      * Defaults to `false`
      */
     disableContextualTranslation?: boolean;
+    /**
+     * An optional override to the skeleton color in the TranslationProvider (if you want a particular piece of text to render with a different colored skeleton).
+     */
+    skeletonColor?: string;
+    /**
+     * Whether to render a skeleton in place of the text while it's being translated.
+     *
+     * This will default to `true` unless you have explicitly disabled it in the <TranslationProvider/>.
+     */
+    enableSkeleton: boolean;
   };
 
 /**
@@ -64,11 +75,17 @@ export type TranslatedTextProps = React.PropsWithChildren &
  * ```
  */
 export const TranslatedText = memo(
-  ({ children, disableContextualTranslation, ...options }: TranslatedTextProps) => {
+  ({
+    children,
+    disableContextualTranslation,
+    enableSkeleton,
+    skeletonColor,
+    ...options
+  }: TranslatedTextProps) => {
     // Our actual translation method
     const { translate } = useTranslator();
     // Check our context to see if translation is necessary
-    const { needsTranslation, debug } = useTranslationContext(options);
+    const { needsTranslation, debug, enableSkeletons } = useTranslationContext(options);
     // Track whether we're done loading our translations (only matters if we need to translate)
     const [isLoading, setIsLoading] = useState(true);
     // We need to generate our translation template to use for overall translations
@@ -153,8 +170,15 @@ export const TranslatedText = memo(
     // If we don't need to translate this particular element (same language or translation disabled), just return children as-is
     if (!needsTranslation) return children;
 
-    // If we are not done translating (or our translation has changed) don't return anything
-    if (isLoading) return undefined;
+    // If we are not done translating (or our translation has changed), don't show the translation
+    if (isLoading) {
+      // If we explicitly disabled the skeleton for this text, don't show it
+      if (enableSkeleton === false) return undefined;
+      // If we disabled skeletons globally and didn't override it to true for this text, don't show it
+      if (enableSkeletons === false && enableSkeleton !== true) return undefined;
+      // Otherwise, skeletons are enabled and we should render one
+      return <Skeleton color={skeletonColor}>{children}</Skeleton>;
+    }
 
     // If we're done loading, but we don't have a translation, return our original children (really shouldn't happen)
     if (!translation) return children;
