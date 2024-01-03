@@ -40,7 +40,7 @@ export type TranslatedTextProps = React.PropsWithChildren &
      *
      * This will default to `true` unless you have explicitly disabled it in the <TranslationProvider/>.
      */
-    enableSkeleton: boolean;
+    enableSkeleton?: boolean;
   };
 
 /**
@@ -177,7 +177,31 @@ export const TranslatedText = memo(
       // If we disabled skeletons globally and didn't override it to true for this text, don't show it
       if (enableSkeletons === false && enableSkeleton !== true) return undefined;
       // Otherwise, skeletons are enabled and we should render one
-      return <Skeleton color={skeletonColor}>{children}</Skeleton>;
+
+      // First we need to determine which children to render. There are two scenarios
+      // 1. The user has disabled contextual translation, in which case we want to return the children as is so they can start their translation process
+      // 2. The user has not disabled contextual translation, in which case we want to disable translations on children because they'll be handled by this component
+      const delayedChildren = disableContextualTranslation
+        ? children
+        : Children.map(children, (child) => {
+            // If the element is a react component, we need to update it's props to disable the translation
+            if (isValidElement(child)) {
+              return cloneElement(child, {
+                // We want to disable the translation on the next node since it was already translated in the context of the parent (no need to hit API again)
+                // However, the the next node will not be a <TranslatedText/> component, so we'll pass values in translationOptions (it will need to be passed manually by user)
+                translationOptions: {
+                  ...(child as any)?.props?.translationOptions,
+                  disableTranslation: true,
+                },
+              } as any);
+            }
+
+            // Otherwise, return the child directly (it's a basic element like string)
+            return child;
+          });
+
+      // Return our skeleton with the updated children
+      return <Skeleton color={skeletonColor}>{delayedChildren}</Skeleton>;
     }
 
     // If we're done loading, but we don't have a translation, return our original children (really shouldn't happen)
