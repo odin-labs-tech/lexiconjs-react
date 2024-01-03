@@ -39,6 +39,18 @@ export type TranslationContextProps = {
    * Defaults to `true`
    */
   ignoreDefaultLanguageCountry?: boolean;
+  /**
+   * *Optional* - The hex color to use for the Skeleton background color (we don't currently animate the skeleton).
+   *
+   * Defaults to `#D6D6D6`
+   */
+  skeletonColor?: string;
+  /**
+   * *Optional* - Whether or not we should render skeletons while we wait for our text to be translated.
+   *
+   * Defaults to `true`
+   */
+  enableSkeletons?: boolean;
   /** *Optional* - Whether we should output some debug logs to the console */
   debug?: boolean;
 };

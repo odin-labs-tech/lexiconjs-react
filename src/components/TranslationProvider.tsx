@@ -19,6 +19,8 @@ export const TranslationProvider = memo(
     targetLanguage,
     cacheTranslationsOnDevice = true,
     ignoreDefaultLanguageCountry = true,
+    enableSkeletons = true,
+    skeletonColor = '#D6D6D6',
     debug = false,
   }: TranslationProviderProps) => {
     /** Check the user's locale preference via the device settings */
@@ -32,6 +34,8 @@ export const TranslationProvider = memo(
           targetLanguage: targetLanguage || locale,
           cacheTranslationsOnDevice,
           ignoreDefaultLanguageCountry,
+          enableSkeletons,
+          skeletonColor,
           debug,
         }}>
         {children}
