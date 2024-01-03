@@ -19,21 +19,31 @@ export const cache = {
   set: ({
     language,
     originalText,
+    context,
     translatedText,
   }: {
     language: Language;
     originalText: string;
+    context?: string;
     translatedText: string;
   }) => {
     /** Hash the text so we can use it as a key */
-    const hash = hashString(originalText);
+    const hash = hashString(context ? context + originalText : originalText);
     // Store the translation in our cache
     storage.set(`${language}_${hash}`, translatedText);
   },
   /** Retrieves a translation from our cache */
-  get: ({ language, originalText }: { language: Language; originalText: string }) => {
+  get: ({
+    language,
+    originalText,
+    context,
+  }: {
+    language: Language;
+    originalText: string;
+    context?: string;
+  }) => {
     /** Hash the text so we can use it as a key */
-    const hash = hashString(originalText);
+    const hash = hashString(context ? context + originalText : originalText);
     // Retrieve the translation from our cache
     return storage.get(`${language}_${hash}`);
   },

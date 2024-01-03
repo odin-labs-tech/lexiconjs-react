@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import { TranslationContext, TranslationContextProps } from '../contexts';
 import { useLocale } from '../hooks';
 
-type Props = React.PropsWithChildren &
+export type TranslationProviderProps = React.PropsWithChildren &
   TranslationContextProps &
   Required<Pick<TranslationContextProps, 'token'>>;
 
@@ -19,7 +19,8 @@ export const TranslationProvider = memo(
     targetLanguage,
     cacheTranslationsOnDevice = true,
     ignoreDefaultLanguageCountry = true,
-  }: Props) => {
+    debug = false,
+  }: TranslationProviderProps) => {
     /** Check the user's locale preference via the device settings */
     const locale = useLocale();
 
@@ -31,6 +32,7 @@ export const TranslationProvider = memo(
           targetLanguage: targetLanguage || locale,
           cacheTranslationsOnDevice,
           ignoreDefaultLanguageCountry,
+          debug,
         }}>
         {children}
       </TranslationContext.Provider>

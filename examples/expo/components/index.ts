@@ -1,2 +1,2 @@
-export { View } from 'react-native';
+export { View, Pressable } from 'react-native';
 export { Text } from './Text';
