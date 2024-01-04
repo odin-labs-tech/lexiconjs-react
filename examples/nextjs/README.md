@@ -4,13 +4,19 @@ This is an example Next.js project leveraging the `@lexiconjs/react` package. Th
 
 ## Getting Started
 
-First, run the development server:
+First, update the value of the publishable key environment variable located in `.env`. This key is issued to you when you create an account or organization at [app.lexiconjs.com](https://app.lexiconjs.com):
+
+```env
+EXPO_PUBLIC_LEXICON_PUBLISHABLE_KEY = ENTER_YOUR_KEY_HERE
+```
+
+Then, you can run the development server with:
 
 ```bash
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Finally, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

@@ -4,13 +4,19 @@ This is an example Expo project leveraging the `@lexiconjs/react` package. The u
 
 ## Getting Started
 
-First, run the application locally:
+First, update the value of the publishable key environment variable located in `.env`. This key is issued to you when you create an account or organization at [app.lexiconjs.com](https://app.lexiconjs.com):
+
+```env
+EXPO_PUBLIC_LEXICON_PUBLISHABLE_KEY = ENTER_YOUR_KEY_HERE
+```
+
+Then, you can run the application locally with:
 
 ```bash
 yarn start
 ```
 
-Then, launch the application in your browser or on a local device to see the result.
+Finally, launch the application in your browser or on a local device to see the result.
 
 ## How is Lexicon Used?
 

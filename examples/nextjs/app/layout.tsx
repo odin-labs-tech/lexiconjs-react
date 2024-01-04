@@ -11,7 +11,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <TranslationProvider defaultLanguage="en-US" token="ADD_TOKEN_HERE">
+        <TranslationProvider
+          defaultLanguage="en-US"
+          token={process.env.NEXT_PUBLIC_LEXICON_PUBLISHABLE_KEY as string}
+          // You can leave out the debug prop in production
+          debug>
           {children}
         </TranslationProvider>
       </body>
