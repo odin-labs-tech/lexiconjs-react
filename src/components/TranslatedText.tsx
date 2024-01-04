@@ -87,7 +87,7 @@ export const TranslatedText = memo(
     // Check our context to see if translation is necessary
     const { needsTranslation, debug, enableSkeletons } = useTranslationContext(options);
     // Track whether we're done loading our translations (only matters if we need to translate)
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(needsTranslation);
     // We need to generate our translation template to use for overall translations
     // If you're working with just strings, this could be as simple as "Translate this text!"
     // If you provide nested text nodes, it could be as complicated as "Translate <1>this text</1> and <3>this text</3>!"

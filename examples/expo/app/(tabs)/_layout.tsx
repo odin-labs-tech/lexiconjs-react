@@ -25,21 +25,21 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: useTranslation('Nesting Translations'),
+          title: useTranslation('Nesting Translations').translation,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
       <Tabs.Screen
         name="two"
         options={{
-          title: useTranslation('Disabling Translations'),
+          title: useTranslation('Disabling Translations').translation,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
       <Tabs.Screen
         name="three"
         options={{
-          title: useTranslation('Using Context'),
+          title: useTranslation('Using Context').translation,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />

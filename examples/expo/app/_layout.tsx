@@ -46,7 +46,7 @@ function RootLayoutNav() {
   return (
     <TranslationProvider
       defaultLanguage="en-US"
-      token="ADD_TOKEN_HERE"
+      token={process.env.EXPO_PUBLIC_LEXICON_PUBLISHABLE_KEY as string}
       // You shouldn't need this props in production (we automatically determine targetLanguage based on device settings)
       targetLanguage="es-ES"
       // You can also leave out the debug prop in production
