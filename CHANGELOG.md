@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 1.3.3
+
+### Patch Changes
+
+- c59f44c: Prevented queries from being performed when input is an empty string.
+
 ## 1.3.0
 
 ### Minor Changes
