@@ -27,6 +27,9 @@ type Options = {
 /** Translates a provided string into the desired language */
 export const translate = async (text: string, { to, from, context, token }: Options) => {
   try {
+    // If we get an empty string or something, just resolve immediately
+    if (!text) return { translation: '', isSuccess: true };
+
     // If we didn't cache the translation, we need to fetch it from the API
     const result = await fetch(`${config.api.baseUrl}/translate`, {
       method: 'POST',
