@@ -95,10 +95,6 @@ export const TranslatedText = memo(
     // After we determine our template and translate it, we'll store the translated result here
     const [translation, setTranslation] = useState<string | undefined>();
 
-    // Include a debug log to gauge performance
-    if (debug)
-      console.log('[@lexiconjs/react] Rendering <TranslatedText/> with children:', children);
-
     // Whenever children change, recompute our desired translationTemplate
     useEffect(() => {
       // If we don't need to translate this particular element (same language or translation disabled), don't run this logic
@@ -106,8 +102,9 @@ export const TranslatedText = memo(
 
       /** Loop over our children to create an array of string nodes to translate and later re-combine */
       const templateString = Children.map(children, (child: any, index) => {
-        // If the child is a string, we just store it in our array directly
-        if (typeof child === 'string' || typeof child === 'number') return child;
+        // If the child is a primitive, we just store it in our array directly
+        if (typeof child === 'string' || typeof child === 'number' || typeof child === 'undefined')
+          return child;
         // If the child is a React element containing a string, wrap the string with the index to later rebuild it
         // Note: we will not include children strings if we are disabling nested translations
         else if (
@@ -118,7 +115,7 @@ export const TranslatedText = memo(
           return `<${index}>${child.props.children}</${index}>`;
         // Otherwise, it's a normal element and we need to just store the index to rebuild it later
         return `<${index}></${index}>`;
-      }).join('');
+      })?.join('');
 
       // Store the computed translation template
       setTranslationTemplate(templateString);
@@ -166,6 +163,9 @@ export const TranslatedText = memo(
           });
       }
     }, [debug, translationTemplate]);
+
+    // If children are undefined, we definitely don't need to do anything
+    if (!children) return undefined;
 
     // If we don't need to translate this particular element (same language or translation disabled), just return children as-is
     if (!needsTranslation) return children;
