@@ -1,5 +1,27 @@
 # @lexiconjs/react
 
+## 1.1.0
+
+### Minor Changes
+
+- 7840688: Added Skeleton loading functionality.
+
+## 1.0.0
+
+### Major Changes
+
+- 154bc67: First major release! Added contextual translations, addditional examples, and improved caching.
+
+## 0.2.0
+
+### Minor Changes
+
+- e8b7230: Added the ability to disable translations for a given block of text
+
+### Patch Changes
+
+- 597a84b: Updated API call to use POST and swapped out axios.
+
 ## 0.1.3
 
 ### Patch Changes
