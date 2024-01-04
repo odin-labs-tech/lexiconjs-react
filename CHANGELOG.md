@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 1.3.0
+
+### Minor Changes
+
+- 13725f6: Updated useTranslation return type to include status.
+
 ## 1.2.0
 
 ### Minor Changes
