@@ -1,5 +1,16 @@
 # @lexiconjs/react
 
+## 1.2.0
+
+### Minor Changes
+
+- e0daf25: Added logic to handle undefined children effectively.
+
+### Patch Changes
+
+- 977e485: Fixed the types on TranslatedText
+- 977e485: Fixed some Skeleton logic to ensure contextual translation works as expected.
+
 ## 1.1.1
 
 ### Patch Changes
