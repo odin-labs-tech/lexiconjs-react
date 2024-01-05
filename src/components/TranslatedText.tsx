@@ -98,7 +98,8 @@ export const TranslatedText = memo(
     // Whenever children change, recompute our desired translationTemplate
     useEffect(() => {
       // If we don't need to translate this particular element (same language or translation disabled), don't run this logic
-      if (!needsTranslation) return;
+      // We also don't translate numbers (they're just numbers)
+      if (!needsTranslation || typeof children === 'number') return;
 
       /** Loop over our children to create an array of string nodes to translate and later re-combine */
       const templateString = Children.map(children, (child: any, index) => {
@@ -168,7 +169,8 @@ export const TranslatedText = memo(
     if (!children) return undefined;
 
     // If we don't need to translate this particular element (same language or translation disabled), just return children as-is
-    if (!needsTranslation) return children;
+    // We also don't translate numbers (they're just numbers)
+    if (!needsTranslation || typeof children === 'number') return children;
 
     // If we are not done translating (or our translation has changed), don't show the translation
     if (isLoading) {

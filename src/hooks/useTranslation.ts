@@ -23,7 +23,8 @@ export const useTranslation = (text: string, options: UseTranslationProps = {}) 
 
   useEffect(() => {
     // If we don't need to translate this text, just return
-    if (!needsTranslation) {
+    // We also don't translate numbers (they're just numbers)
+    if (!needsTranslation || typeof text === 'number') {
       setTranslation(text);
       setStatus('success');
       return;

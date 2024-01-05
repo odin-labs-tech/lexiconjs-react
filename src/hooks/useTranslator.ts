@@ -34,8 +34,7 @@ export const useTranslator = () => {
         );
 
       // If text is not a string, the library is being using incorrectly
-      if (typeof text !== 'string')
-        throw new Error('[@lexiconjs/react] useTranslation text must be a string');
+      if (typeof text !== 'string') throw new Error('[@lexiconjs/react] text must be a string');
 
       try {
         // Determine the languages that we will be translating from / to
