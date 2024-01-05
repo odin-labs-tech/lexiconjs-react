@@ -1,2 +1,7 @@
+# Primary ignore file for the project
 dist
 node_modules
+
+# Yarn
+.yarn/cache
+.yarn/install-state
