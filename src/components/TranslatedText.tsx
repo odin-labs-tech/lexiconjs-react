@@ -94,6 +94,8 @@ export const TranslatedText = memo(
     const [translationTemplate, setTranslationTemplate] = useState<string | undefined>();
     // After we determine our template and translate it, we'll store the translated result here
     const [translation, setTranslation] = useState<string | undefined>();
+    /** The regex we can use to parse out nodes within our translation */
+    const nodeLocationRegex = /(<\d+>.*?<\/\d+>)/;
 
     // Whenever children change, recompute our desired translationTemplate
     useEffect(() => {
@@ -209,23 +211,21 @@ export const TranslatedText = memo(
     // If we're done loading, but we don't have a translation, return our original children (really shouldn't happen)
     if (!translation) return children;
 
-    // If the original children were not an array, we can just return the translation as is and avoid extra computation
-    if (!Array.isArray(children)) return translation;
+    // If the original children were not an array and didn't contain any nodes, we can just return the translation as is and avoid extra computation
+    if (!Array.isArray(children) && !translation.match(nodeLocationRegex)) return translation;
 
     // ---------- FINAL COMPOSITION ----------
     // Return modified / moved children based on the translation response
     /** Extract original children as an array */
     const originalChildren = Children.toArray(children);
-    /** The regex we can use to parse out nodes within our translation */
-    const regex = /(<\d+>.*?<\/\d+>)/;
     // Convert the translation string into an array of strings with their tags
-    const translationArray = translation.split(regex).filter(Boolean);
+    const translationArray = translation.split(nodeLocationRegex).filter(Boolean);
 
     // Convert our strings into React elements using the original children nodes where necessary
     const finalChildren = translationArray.map((translation) => {
       // Check whether the translation contains a tagged index
-      const regex = /<(\d+)>(.*?)<\/\1>/;
-      const match = translation.match(regex);
+      const tagMatchRegex = /<(\d+)>(.*?)<\/\1>/;
+      const match = translation.match(tagMatchRegex);
 
       // If we found a match, we need to wrap the translation with the original child
       if (match) {
