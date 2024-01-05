@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 1.3.4
+
+### Patch Changes
+
+- 557b6d3: Removed an unused dependency from package.json.
+
 ## 1.3.3
 
 ### Patch Changes
