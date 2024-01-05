@@ -4,4 +4,4 @@ node_modules
 
 # Yarn
 .yarn/cache
-.yarn/install-state
+.yarn/install-state.gz
