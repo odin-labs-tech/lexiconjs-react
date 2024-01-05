@@ -1,5 +1,12 @@
 # @lexiconjs/react
 
+## 1.3.5
+
+### Patch Changes
+
+- c8e5d35: Stopped translating raw numbers.
+- 897c7d6: Resolved an issue where a singular node wrapped in a Text element did not properly reinject.
+
 ## 1.3.4
 
 ### Patch Changes
