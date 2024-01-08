@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 1.5.0
+
+### Minor Changes
+
+- e45730b: Replaced pacakger to ensure react-native works as expected.
+
 ## 1.4.0
 
 ### Minor Changes
