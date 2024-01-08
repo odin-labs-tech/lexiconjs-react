@@ -1,8 +1,6 @@
 import { TranslatedText, TranslatedTextProps } from '@lexiconjs/react';
 import { Text as NativeText } from 'react-native';
 
-// import { TranslatedText, TranslatedTextProps } from '../dist';
-
 type Props = React.PropsWithChildren<React.ComponentProps<typeof NativeText>> & {
   /**
    * Additional translation options that you can pass down to the translator. Feel

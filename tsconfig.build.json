@@ -1,0 +1,8 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "lib": ["es5", "es6", "dom"],
+    "noEmit": false
+  }
+}
