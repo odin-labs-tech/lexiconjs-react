@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 1.4.0
+
+### Minor Changes
+
+- 297f166: Updated contextual translation lgoic to rely on context rather than specific prop drilling.
+
 ## 1.3.5
 
 ### Patch Changes
