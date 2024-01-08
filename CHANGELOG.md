@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 1.5.1
+
+### Patch Changes
+
+- 643b090: Exporting useLocale hook to provide detected locale.
+
 ## 1.5.0
 
 ### Minor Changes
