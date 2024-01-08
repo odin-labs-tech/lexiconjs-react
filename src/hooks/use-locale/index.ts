@@ -12,8 +12,8 @@ export const useLocale = () => {
         ? window.navigator.language || (window as any).navigator.userLanguage
         : undefined;
 
-    // Only use the first portion of the locale and fall back to English
-    return detectedLocale || 'en';
+    // Fall back to English
+    return detectedLocale || 'en-US';
   }, []);
 
   return locale as Language;
