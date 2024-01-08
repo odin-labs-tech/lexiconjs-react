@@ -15,17 +15,29 @@ type Options = {
    */
   to: Language;
   /**
-   * Some context to the provide the translation (very useful when translating a single word without any surrounding words to give it context).
+   * *Optional* - Some context to the provide the translation (very useful when translating a single word without any surrounding words to give it context).
    *
    * For example, if you're translating the word "bank" from English to French, you can provide the context of "river" or "money" to get the correct translation.
    */
   context?: string;
+  /**
+   * *Optional* - If you wish to tweak the translation model and give it some additional guidance (for example, if it isn't handling certain translations the way you'd like),
+   * you can provide a short message her to help guide the translation model.
+   *
+   * For example, you could say something like "Keep all currency formatting in the original language" to ensure currency is treated a certain way.
+   *
+   * Defaults to `undefined`
+   */
+  translationGuidance?: string;
   /** The issued token used to authenticate with the service (see lexiconjs.com dashboard) */
   token: string;
 };
 
 /** Translates a provided string into the desired language */
-export const translate = async (text: string, { to, from, context, token }: Options) => {
+export const translate = async (
+  text: string,
+  { to, from, context, token, translationGuidance }: Options
+) => {
   try {
     // If we get an empty string or something, just resolve immediately
     if (!text) return { translation: '', isSuccess: true };
@@ -43,6 +55,7 @@ export const translate = async (text: string, { to, from, context, token }: Opti
         from,
         to,
         context,
+        translationGuidance,
       }),
     });
 

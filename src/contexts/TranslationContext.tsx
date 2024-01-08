@@ -53,6 +53,15 @@ export type TranslationContextProps = {
    * Defaults to `true`
    */
   enableSkeletons?: boolean;
+  /**
+   * *Optional* - If you wish to tweak the translation model and give it some additional guidance (for example, if it isn't handling certain translations the way you'd like),
+   * you can provide a short message her to help guide the translation model.
+   *
+   * For example, you could say something like "Keep all currency formatting in the original language" to ensure currency is treated a certain way.
+   *
+   * Defaults to `undefined`
+   */
+  translationGuidance?: string;
   /** *Optional* - Whether we should output some debug logs to the console */
   debug?: boolean;
 };

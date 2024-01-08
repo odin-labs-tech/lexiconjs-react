@@ -5,7 +5,10 @@ import { translate as translateMethod, cache } from '../core';
 import type { Language } from '../types';
 
 /** The options available to pass to our translation methods / component */
-export type TranslationOptions = Omit<Partial<Parameters<typeof translateMethod>[1]>, 'token'> & {
+export type TranslationOptions = Omit<
+  Partial<Parameters<typeof translateMethod>[1]>,
+  'token' | 'translationGuidance'
+> & {
   /** Whether we should disable the translation for this particular element (useful when passing in text you'd rather leave alone) */
   disableTranslation?: boolean;
 };
@@ -19,6 +22,7 @@ export const useTranslator = () => {
     cacheTranslationsOnDevice,
     token,
     ignoreDefaultLanguageCountry,
+    translationGuidance,
   } = useContext(TranslationContext);
 
   /** The translation logic specific to this framework */
@@ -67,6 +71,7 @@ export const useTranslator = () => {
           to: toLanguage,
           token,
           context,
+          translationGuidance,
           ...options,
         });
 
