@@ -1,6 +1,15 @@
-import React, { Children, cloneElement, memo, useState, useEffect, isValidElement } from 'react';
+import React, {
+  Children,
+  cloneElement,
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  isValidElement,
+} from 'react';
 
 import { Skeleton } from './skeleton';
+import { TranslatedTextContext } from '../contexts';
 import { TranslationOptions, useTranslator, useTranslationContext } from '../hooks';
 
 export type TranslatedTextProps = React.PropsWithChildren &
@@ -84,8 +93,13 @@ export const TranslatedText = memo(
   }: TranslatedTextProps) => {
     // Our actual translation method
     const { translate } = useTranslator();
-    // Check our context to see if translation is necessary
-    const { needsTranslation, debug, enableSkeletons } = useTranslationContext(options);
+    // Check our secondary context for any changes (useful when we have nested <TranslatedText/> components)
+    const { disableTranslation } = useContext(TranslatedTextContext);
+    // Check our primary context to see if translation is necessary
+    const { needsTranslation, debug, enableSkeletons } = useTranslationContext({
+      ...options,
+      disableTranslation: disableTranslation ?? options.disableTranslation,
+    });
     // Track whether we're done loading our translations (only matters if we need to translate)
     const [isLoading, setIsLoading] = useState(needsTranslation);
     // We need to generate our translation template to use for overall translations
@@ -168,7 +182,7 @@ export const TranslatedText = memo(
     }, [debug, translationTemplate]);
 
     // If children are undefined, we definitely don't need to do anything
-    if (!children) return undefined;
+    if (typeof children !== 'number' && !children) return undefined;
 
     // If we don't need to translate this particular element (same language or translation disabled), just return children as-is
     // We also don't translate numbers (they're just numbers)
@@ -182,30 +196,15 @@ export const TranslatedText = memo(
       if (enableSkeletons === false && enableSkeleton !== true) return undefined;
       // Otherwise, skeletons are enabled and we should render one
 
-      // First we need to determine which children to render. There are two scenarios
-      // 1. The user has disabled contextual translation, in which case we want to return the children as is so they can start their translation process
+      // Return our skeleton with the updated children (and provide context to disable translations in some scenarios). There are two scenarios:
+      // 1. The user has disabled contextual translation, in which case we don't want to disable translation (they should translate in parallel)
       // 2. The user has not disabled contextual translation, in which case we want to disable translations on children because they'll be handled by this component
-      const delayedChildren = disableContextualTranslation
-        ? children
-        : Children.map(children, (child) => {
-            // If the element is a react component, we need to update it's props to disable the translation
-            if (isValidElement(child)) {
-              return cloneElement(child, {
-                // We want to disable the translation on the next node since it was already translated in the context of the parent (no need to hit API again)
-                // However, the the next node will not be a <TranslatedText/> component, so we'll pass values in translationOptions (it will need to be passed manually by user)
-                translationOptions: {
-                  ...(child as any)?.props?.translationOptions,
-                  disableTranslation: true,
-                },
-              } as any);
-            }
-
-            // Otherwise, return the child directly (it's a basic element like string)
-            return child;
-          });
-
-      // Return our skeleton with the updated children
-      return <Skeleton color={skeletonColor}>{delayedChildren}</Skeleton>;
+      return (
+        <TranslatedTextContext.Provider
+          value={{ disableTranslation: !disableContextualTranslation || undefined }}>
+          <Skeleton color={skeletonColor}>{children}</Skeleton>
+        </TranslatedTextContext.Provider>
+      );
     }
 
     // If we're done loading, but we don't have a translation, return our original children (really shouldn't happen)
@@ -242,12 +241,6 @@ export const TranslatedText = memo(
         // Verify that the given react node is an element (it should always be)
         if (isValidElement(originalChild)) {
           return cloneElement(originalChild, {
-            // We want to disable the translation on the next node since it was already translated in the context of the parent (no need to hit API again)
-            // However, the the next node will not be a <TranslatedText/> component, so we'll pass values in translationOptions (it will need to be passed manually by user)
-            translationOptions: {
-              ...(originalChild as any)?.props?.translationOptions,
-              disableTranslation: true,
-            },
             // Update the text children of this node to be the translated text
             children: translatedText,
           } as any);
@@ -258,6 +251,14 @@ export const TranslatedText = memo(
       return translation;
     });
 
-    return finalChildren;
+    // Return our final set of children (ensure to disable translation where necessary using context). There are two scenarios:
+    // 1. The user has disabled contextual translation, in which case we don't want to disable translation (they will translate separately)
+    // 2. The user has not disabled contextual translation, in which case we want to disable translations on children because they were handled by this component
+    return (
+      <TranslatedTextContext.Provider
+        value={{ disableTranslation: !disableContextualTranslation || undefined }}>
+        {finalChildren}
+      </TranslatedTextContext.Provider>
+    );
   }
 );

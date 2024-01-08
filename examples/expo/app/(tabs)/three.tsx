@@ -10,8 +10,12 @@ export default function TabThreeScreen() {
       <Text style={{ fontWeight: 'bold' }}>Top</Text>
 
       {/* This is with providing context (will be translated specifically to your example) */}
-      <Text>This is how the word "Top" is translated with the context "Top Recommendations": </Text>
-      <Text style={{ fontWeight: 'bold' }} translationOptions={{ context: 'Top Recommendations' }}>
+      <Text>
+        This is how the word "Top" is translated with the context "Our Top Recommendations":
+      </Text>
+      <Text
+        style={{ fontWeight: 'bold' }}
+        translationOptions={{ context: 'Our Top Recommendations' }}>
         Top
       </Text>
     </View>
