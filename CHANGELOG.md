@@ -1,5 +1,12 @@
 # @lexiconjs/react
 
+## 1.5.2
+
+### Patch Changes
+
+- 07765b0: Standardized locale formatting to use dashes.
+- 0695f68: Added `translationGuidance` prop to Provider to allow for deeper control over translation model.
+
 ## 1.5.1
 
 ### Patch Changes
