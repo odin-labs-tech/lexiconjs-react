@@ -8,18 +8,33 @@
   },
   "author": "Odin Labs, LLC",
   "license": "MIT",
-  "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "packageManager": "yarn@3.2.2",
   "source": "src/index.ts",
+  "main": "dist/commonjs/index",
+  "module": "dist/module/index",
+  "react-native": "dist/module/index",
+  "types": "dist/typescript/index.d.ts",
   "files": [
-    "dist",
     "src",
+    "dist",
     "!src/**/*.test.*"
   ],
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "dist",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  },
   "scripts": {
-    "build": "tsup",
+    "build": "bob build",
     "lint": "tsc --noEmit & eslint --fix \"**/*.{cjs,js,ts,jsx,tsx}\"",
     "format": "prettier --write --ignore-unknown .",
     "prepare": "husky install",
@@ -50,13 +65,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-native": "^0.73.1",
-    "tsup": "^8.0.0",
+    "react-native-builder-bob": "^0.23.2",
     "typescript": "^5.2.2",
     "vite-tsconfig-paths": "^4.2.1",
     "vitest": "^0.34.6"
   },
   "dependencies": {
     "react-native-mmkv": "^2.8.0"
-  },
-  "packageManager": "yarn@3.2.2"
+  }
 }
