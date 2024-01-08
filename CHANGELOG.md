@@ -1,5 +1,30 @@
 # @lexiconjs/react
 
+## 1.4.0
+
+### Minor Changes
+
+- 297f166: Updated contextual translation lgoic to rely on context rather than specific prop drilling.
+
+## 1.3.5
+
+### Patch Changes
+
+- c8e5d35: Stopped translating raw numbers.
+- 897c7d6: Resolved an issue where a singular node wrapped in a Text element did not properly reinject.
+
+## 1.3.4
+
+### Patch Changes
+
+- 557b6d3: Removed an unused dependency from package.json.
+
+## 1.3.3
+
+### Patch Changes
+
+- c59f44c: Prevented queries from being performed when input is an empty string.
+
 ## 1.3.0
 
 ### Minor Changes
