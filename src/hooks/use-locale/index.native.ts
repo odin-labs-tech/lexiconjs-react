@@ -14,8 +14,8 @@ export const useLocale = () => {
           NativeModules.SettingsManager.settings.AppleLanguages[0]
         : NativeModules.I18nManager.localeIdentifier;
 
-    // Fall back to English
-    return detectedLocale || 'en-US';
+    // Format and fall back to English
+    return detectedLocale?.replaceAll('_', '-') || 'en-US';
   }, []);
 
   return locale as Language;
