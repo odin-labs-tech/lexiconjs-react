@@ -7,7 +7,7 @@ import type { Language } from '../types';
 /** The options available to pass to our translation methods / component */
 export type TranslationOptions = Omit<
   Partial<Parameters<typeof translateMethod>[1]>,
-  'token' | 'translationGuidance'
+  'token' | 'translationGuidance' | 'deviceId'
 > & {
   /** Whether we should disable the translation for this particular element (useful when passing in text you'd rather leave alone) */
   disableTranslation?: boolean;
@@ -23,6 +23,7 @@ export const useTranslator = () => {
     token,
     ignoreDefaultLanguageCountry,
     translationGuidance,
+    deviceId,
   } = useContext(TranslationContext);
 
   /** The translation logic specific to this framework */
@@ -72,6 +73,7 @@ export const useTranslator = () => {
           token,
           context,
           translationGuidance,
+          deviceId: deviceId as string,
           ...options,
         });
 
@@ -92,7 +94,7 @@ export const useTranslator = () => {
         return { translation: text, isSuccess: false };
       }
     },
-    [defaultLanguage, targetLanguage, cacheTranslationsOnDevice, token]
+    [defaultLanguage, targetLanguage, cacheTranslationsOnDevice, token, deviceId]
   );
 
   return {

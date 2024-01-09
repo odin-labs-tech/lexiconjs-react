@@ -64,6 +64,8 @@ export type TranslationContextProps = {
   translationGuidance?: string;
   /** *Optional* - Whether we should output some debug logs to the console */
   debug?: boolean;
+  /** A unique id to associate with the current device / translations */
+  deviceId?: string;
 };
 
 // ---------------------- START MAIN ---------------------- //
