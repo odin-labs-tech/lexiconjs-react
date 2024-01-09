@@ -12,7 +12,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@lexiconjs/react": "1.5.4",
+    "@lexiconjs/react": "1.6.0",
     "@uidotdev/usehooks": "^2.4.1",
     "i18n-iso-countries": "^7.7.0",
     "next": "14.0.4",
