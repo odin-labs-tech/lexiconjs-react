@@ -133,16 +133,49 @@ export const TranslatedText = memo(
       /** Loop over our children to create an array of string nodes to translate and later re-combine */
       const templateString = Children.map(children, (child: any, index) => {
         // If the child is a primitive, we just store it in our array directly
-        if (typeof child === 'string' || typeof child === 'number' || typeof child === 'undefined')
+        if (
+          typeof child === 'string' ||
+          typeof child === 'number' ||
+          typeof child === 'undefined'
+        ) {
           return child;
-        // If the child is a React element containing a string, wrap the string with the index to later rebuild it
-        // Note: we will not include children strings if we are disabling nested translations
-        else if (
-          (typeof child?.props?.children === 'string' ||
-            typeof child?.props?.children === 'number') &&
-          !disableContextualTranslation
-        )
-          return `<${index}>${child.props.children}</${index}>`;
+        }
+        // If we have not disabled contextual translation, we need to check a few scenarios on the children
+        // because we will be trying to translate them in context at the same time
+        if (!disableContextualTranslation) {
+          // If the child is a React element containing a string or number, wrap the string with the index to later rebuild it
+          if (
+            typeof child?.props?.children === 'string' ||
+            typeof child?.props?.children === 'number'
+          ) {
+            return `<${index}>${child.props.children}</${index}>`;
+          }
+          // If the child element is an array, it could be an array of numbers / strings we need to combine
+          else if (Array.isArray(child?.props?.children)) {
+            /** Track whether the children were all primitives (can we concatenate them) */
+            let allChildrenArePrimitive = true;
+            /** Loop over the children and see if all elements are numbers / strings and concatenate them */
+            const concatenatedChildren = Children.map(child.props.children, (child: any) => {
+              // If the child is a primitive, we just store it in our array directly
+              if (
+                typeof child === 'string' ||
+                typeof child === 'number' ||
+                typeof child === 'undefined'
+              ) {
+                return child;
+              }
+              // If any of the children were primitives, we can't concatenate or translate them
+              else {
+                allChildrenArePrimitive = false;
+                return undefined;
+              }
+            })?.join('');
+
+            // If all children were primitives, we can translate them
+            if (allChildrenArePrimitive) return `<${index}>${concatenatedChildren}</${index}>`;
+          }
+        }
+
         // Otherwise, it's a normal element and we need to just store the index to rebuild it later
         return `<${index}></${index}>`;
       })?.join('');
