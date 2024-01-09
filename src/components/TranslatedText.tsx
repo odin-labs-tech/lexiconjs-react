@@ -105,7 +105,7 @@ export const TranslatedText = memo(
       // 2. If this is being translated in the parent's context, the translation is handled there, so don't handle it here
       // 3. If the user told us to disable translations, we don't want to translate
       disableTranslation:
-        typeof children === 'number' ?? translatedInParentsContext ?? options.disableTranslation,
+        typeof children === 'number' || (translatedInParentsContext ?? options.disableTranslation),
     });
     // Track whether we're done loading our translations
     const [isLoading, setIsLoading] = useState(
