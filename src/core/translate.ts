@@ -1,3 +1,4 @@
+import { uuid } from './uuid';
 import { config } from '../config';
 import { Language } from '../types';
 
@@ -31,16 +32,20 @@ type Options = {
   translationGuidance?: string;
   /** The issued token used to authenticate with the service (see lexiconjs.com dashboard) */
   token: string;
+  /** A unique id used to identify the device */
+  deviceId: string;
 };
 
 /** Translates a provided string into the desired language */
 export const translate = async (
   text: string,
-  { to, from, context, token, translationGuidance }: Options
+  { to, from, context, token, translationGuidance, deviceId }: Options
 ) => {
   try {
     // If we get an empty string or something, just resolve immediately
     if (!text) return { translation: '', isSuccess: true };
+
+    console.log('[@lexiconjs/react] Unique ID', deviceId);
 
     // If we didn't cache the translation, we need to fetch it from the API
     const result = await fetch(`${config.api.baseUrl}/translate`, {
@@ -56,6 +61,8 @@ export const translate = async (
         to,
         context,
         translationGuidance,
+        // This should always be defined, but generate a fallback just in case
+        deviceId: deviceId ?? uuid.generate(),
       }),
     });
 

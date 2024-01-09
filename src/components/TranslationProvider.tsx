@@ -3,10 +3,10 @@
 import React, { memo } from 'react';
 
 import { TranslationContext, TranslationContextProps } from '../contexts';
-import { useLocale } from '../hooks';
+import { useLocale, useDeviceId } from '../hooks';
 
 export type TranslationProviderProps = React.PropsWithChildren &
-  TranslationContextProps &
+  Omit<TranslationContextProps, 'deviceId'> &
   Required<Pick<TranslationContextProps, 'token'>>;
 
 /**
@@ -28,6 +28,8 @@ export const TranslationProvider = memo(
   }: TranslationProviderProps) => {
     /** Check the user's locale preference via the device settings */
     const locale = useLocale();
+    /** Generate a unique id to associate with the user's device */
+    const { deviceId } = useDeviceId();
 
     return (
       <TranslationContext.Provider
@@ -40,6 +42,7 @@ export const TranslationProvider = memo(
           translationGuidance,
           enableSkeletons,
           skeletonColor,
+          deviceId,
           debug,
         }}>
         {children}

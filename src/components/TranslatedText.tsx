@@ -96,14 +96,25 @@ export const TranslatedText = memo(
     // Our actual translation method
     const { translate } = useTranslator();
     // Check our secondary context for any changes (useful when we have nested <TranslatedText/> components)
-    const { disableTranslation } = useContext(TranslatedTextContext);
+    const { translatedInParentsContext, isParentLoading } = useContext(TranslatedTextContext);
     // Check our primary context to see if translation is necessary
     const { needsTranslation, debug, enableSkeletons } = useTranslationContext({
       ...options,
-      disableTranslation: disableTranslation ?? options.disableTranslation,
+      // We disable translations for various situations:
+      // 1. If this is a number, we don't need to translate anything
+      // 2. If this is being translated in the parent's context, the translation is handled there, so don't handle it here
+      // 3. If the user told us to disable translations, we don't want to translate
+      disableTranslation:
+        typeof children === 'number' ?? translatedInParentsContext ?? options.disableTranslation,
     });
-    // Track whether we're done loading our translations (only matters if we need to translate)
-    const [isLoading, setIsLoading] = useState(needsTranslation);
+    // Track whether we're done loading our translations
+    const [isLoading, setIsLoading] = useState(
+      // We only need to load if we need to translate
+      needsTranslation ||
+        // We also need to account for text that doesn't necessarily need translation since it's parent is translating it (so it isn't loading),
+        // but the parent is still loading the contextual version of the translation
+        (translatedInParentsContext && isParentLoading)
+    );
     // We need to generate our translation template to use for overall translations
     // If you're working with just strings, this could be as simple as "Translate this text!"
     // If you provide nested text nodes, it could be as complicated as "Translate <1>this text</1> and <3>this text</3>!"
@@ -149,10 +160,11 @@ export const TranslatedText = memo(
 
     // Whenever our translation template changes, we need to translate it
     useEffect(() => {
-      // Whenever our translation template changes, we'll re-enter our loading state
-      setIsLoading(true);
       // Don't run this until our translationTemplate becomes defined
       if (translationTemplate) {
+        // Whenever our translation template changes, we'll re-enter our loading state
+        setIsLoading(true);
+
         // Translate our template
         translate(translationTemplate, options)
           .then(({ translation, isSuccess }) => {
@@ -186,10 +198,6 @@ export const TranslatedText = memo(
     // If children are undefined, we definitely don't need to do anything
     if (typeof children !== 'number' && !children) return undefined;
 
-    // If we don't need to translate this particular element (same language or translation disabled), just return children as-is
-    // We also don't translate numbers (they're just numbers)
-    if (!needsTranslation || typeof children === 'number') return children;
-
     // If we are not done translating (or our translation has changed), don't show the translation
     if (isLoading) {
       // If we explicitly disabled the skeleton for this text, don't show it
@@ -203,11 +211,18 @@ export const TranslatedText = memo(
       // 2. The user has not disabled contextual translation, in which case we want to disable translations on children because they'll be handled by this component
       return (
         <TranslatedTextContext.Provider
-          value={{ disableTranslation: !disableContextualTranslation || undefined }}>
+          value={{
+            translatedInParentsContext: !disableContextualTranslation || undefined,
+            isParentLoading: true,
+          }}>
           <Skeleton color={skeletonColor}>{children}</Skeleton>
         </TranslatedTextContext.Provider>
       );
     }
+
+    // If we don't need to translate this particular element (same language or translation disabled), just return children as-is
+    // We also don't translate numbers (they're just numbers)
+    if (!needsTranslation || typeof children === 'number') return children;
 
     // If we're done loading, but we don't have a translation, return our original children (really shouldn't happen)
     if (!translation) return children;
@@ -258,7 +273,7 @@ export const TranslatedText = memo(
     // 2. The user has not disabled contextual translation, in which case we want to disable translations on children because they were handled by this component
     return (
       <TranslatedTextContext.Provider
-        value={{ disableTranslation: !disableContextualTranslation || undefined }}>
+        value={{ translatedInParentsContext: !disableContextualTranslation || undefined }}>
         {finalChildren}
       </TranslatedTextContext.Provider>
     );
