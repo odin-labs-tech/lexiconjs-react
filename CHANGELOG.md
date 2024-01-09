@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 1.6.0
+
+### Minor Changes
+
+- 4e0b5bb: Added logic to handle nested children primitives (concatenating them for contextual translation).
+
 ## 1.5.4
 
 ### Patch Changes
