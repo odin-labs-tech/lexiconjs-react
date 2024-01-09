@@ -1,5 +1,12 @@
 # @lexiconjs/react
 
+## 1.5.3
+
+### Patch Changes
+
+- b39700a: Started tracking device id in requests.
+- c291687: Modified nested contextual translation loading logic to keep children in a loading state until the parent loads.
+
 ## 1.5.2
 
 ### Patch Changes
