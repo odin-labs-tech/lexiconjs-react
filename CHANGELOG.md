@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 1.5.4
+
+### Patch Changes
+
+- ed11ce1: Fixed some loading logic that caused things to reload.
+
 ## 1.5.3
 
 ### Patch Changes
