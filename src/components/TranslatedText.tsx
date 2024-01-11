@@ -111,9 +111,8 @@ export const TranslatedText = memo(
     const [isLoading, setIsLoading] = useState(
       // We only need to load if we need to translate
       needsTranslation ||
-        // We also need to account for text that doesn't necessarily need translation since it's parent is translating it (so it isn't loading),
-        // but the parent is still loading the contextual version of the translation
-        (translatedInParentsContext && isParentLoading)
+        // We also need to account for text that doesn't necessarily need translation, but the parent is still loading
+        isParentLoading
     );
     // We need to generate our translation template to use for overall translations
     // If you're working with just strings, this could be as simple as "Translate this text!"
