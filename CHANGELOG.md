@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 1.6.1
+
+### Patch Changes
+
+- d802073: Modified loading logic slightly for children of parent.
+
 ## 1.6.0
 
 ### Minor Changes
