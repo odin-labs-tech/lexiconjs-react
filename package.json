@@ -1,7 +1,7 @@
 {
   "name": "@lexiconjs/react",
   "description": "The javascript SDK for the lexicon translator.",
-  "version": "1.6.2",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/odin-labs-tech/lexicon-react"

@@ -1,5 +1,16 @@
 # @lexiconjs/react
 
+## 2.0.0
+
+### Major Changes
+
+- a96d68e: Updated the way locales are handled.
+
+### Patch Changes
+
+- 3e4508b: Updated hash to incorporate the translationGuidance (changing it should create new translations in cache).
+- 0e1c10d: Modified loading logic slightly for children of parent.
+
 ## 1.6.2
 
 ### Patch Changes
