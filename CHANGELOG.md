@@ -1,5 +1,12 @@
 # @lexiconjs/react
 
+## 1.6.2
+
+### Patch Changes
+
+- 14aefd2: Updated hash to incorporate the translationGuidance (changing it should create new translations in cache).
+- 14aefd2: Modified loading logic slightly for children of parent.
+
 ## 1.6.1
 
 ### Patch Changes
