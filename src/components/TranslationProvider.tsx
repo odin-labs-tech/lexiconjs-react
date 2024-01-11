@@ -27,7 +27,7 @@ export const TranslationProvider = memo(
     debug = false,
   }: TranslationProviderProps) => {
     /** Check the user's locale preference via the device settings */
-    const locale = useLocale();
+    const { locale } = useLocale();
     /** Generate a unique id to associate with the user's device */
     const { deviceId } = useDeviceId();
 
