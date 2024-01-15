@@ -39,6 +39,7 @@
     "format": "prettier --write --ignore-unknown .",
     "prepare": "husky install",
     "prepublishOnly": "yarn build",
+    "pre-commit": "npx lint-staged",
     "test": "vitest run"
   },
   "peerDependencies": {
