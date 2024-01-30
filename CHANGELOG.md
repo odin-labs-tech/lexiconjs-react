@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 2.1.0
+
+### Minor Changes
+
+- 045199a: Added device configuration settings
+
 ## 2.0.0
 
 ### Major Changes
