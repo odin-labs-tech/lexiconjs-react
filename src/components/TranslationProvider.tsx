@@ -1,8 +1,9 @@
 'use client';
 
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 
 import { TranslationContext, TranslationContextProps } from '../contexts';
+import { lexicon } from '../core';
 import { useLocale, useDeviceId } from '../hooks';
 
 export type TranslationProviderProps = React.PropsWithChildren &
@@ -30,6 +31,17 @@ export const TranslationProvider = memo(
     const { locale } = useLocale();
     /** Generate a unique id to associate with the user's device */
     const { deviceId } = useDeviceId();
+
+    // When we initialize, we want to register the device
+    useEffect(() => {
+      if (locale && deviceId) {
+        lexicon.registerDevice({
+          deviceId,
+          locale,
+          token,
+        });
+      }
+    }, [locale, deviceId]);
 
     return (
       <TranslationContext.Provider

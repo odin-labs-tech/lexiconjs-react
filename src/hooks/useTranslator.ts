@@ -1,12 +1,12 @@
 import { useContext, useCallback } from 'react';
 
 import { TranslationContext } from '../contexts';
-import { translate as translateMethod, cache } from '../core';
+import { lexicon, cache } from '../core';
 import type { Language } from '../types';
 
 /** The options available to pass to our translation methods / component */
 export type TranslationOptions = Omit<
-  Partial<Parameters<typeof translateMethod>[1]>,
+  Partial<Parameters<typeof lexicon.translate>[1]>,
   'token' | 'translationGuidance' | 'deviceId'
 > & {
   /** Whether we should disable the translation for this particular element (useful when passing in text you'd rather leave alone) */
@@ -67,7 +67,7 @@ export const useTranslator = () => {
         }
 
         // Run the actual translation
-        const { translation, isSuccess } = await translateMethod(text, {
+        const { translation, isSuccess } = await lexicon.translate(text, {
           from: fromLanguage,
           to: toLanguage,
           token,
