@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 2.2.0
+
+### Minor Changes
+
+- 8eafa69: Made react-native-mmkv a peer dependency since expo won't link it automatically
+
 ## 2.1.0
 
 ### Minor Changes
