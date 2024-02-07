@@ -2521,16 +2521,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lexiconjs/react@npm:2.1.0":
-  version: 2.1.0
-  resolution: "@lexiconjs/react@npm:2.1.0"
-  dependencies:
-    react-native-mmkv: ^2.8.0
+"@lexiconjs/react@npm:2.2.0":
+  version: 2.2.0
+  resolution: "@lexiconjs/react@npm:2.2.0"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-native: "*"
-  checksum: 3619e4fdbe7006f0a50632089409bf6b1099835cffb790245d555b249d68cf99dd7ec8faa34dcb64e5f0b378fd99df2f621ce772cb1e2cea7ec99018fd34500f
+    react-native-mmkv: ^2.8.0
+  checksum: 795c8bda10f44a111bb1a4ecf1b5bf4c50fa61b796b73b0f7344b751cc809703f26be0797fed5d9afd2c1b364874debc22bcb5fab2d32949117eacf3abacf711
   languageName: node
   linkType: hard
 
@@ -7832,7 +7831,7 @@ __metadata:
   dependencies:
     "@babel/core": ^7.20.0
     "@expo/vector-icons": ^13.0.0
-    "@lexiconjs/react": 2.1.0
+    "@lexiconjs/react": 2.2.0
     "@react-navigation/native": ^6.0.2
     "@types/react": ~18.2.45
     expo: ~50.0.0-preview.4
@@ -7850,6 +7849,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-native: 0.73.0
+    react-native-mmkv: ^2.11.0
     react-native-safe-area-context: 4.7.4
     react-native-screens: ~3.27.0
     react-native-svg: 13.4.0
@@ -9655,7 +9655,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-mmkv@npm:^2.8.0":
+"react-native-mmkv@npm:^2.11.0":
   version: 2.11.0
   resolution: "react-native-mmkv@npm:2.11.0"
   peerDependencies:
