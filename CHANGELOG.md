@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 2.2.1
+
+### Patch Changes
+
+- 488292f: Added some additional error handling
+
 ## 2.2.0
 
 ### Minor Changes
