@@ -2369,6 +2369,7 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-native: "*"
+    react-native-mmkv: ^2.8.0
   languageName: unknown
   linkType: soft
 
