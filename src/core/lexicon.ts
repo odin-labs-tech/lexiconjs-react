@@ -102,17 +102,21 @@ export const lexicon = {
     /** The issued token used to authenticate with the service (see lexiconjs.com dashboard) */
     token: string;
   }) => {
-    await fetch(`${config.api.baseUrl}/device`, {
-      method: 'POST',
-      headers: {
-        // @ts-ignore - Custom API key header to authenticate with the service
-        'x-api-key': token,
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        deviceId,
-        locale,
-      }),
-    });
+    try {
+      await fetch(`${config.api.baseUrl}/device`, {
+        method: 'POST',
+        headers: {
+          // @ts-ignore - Custom API key header to authenticate with the service
+          'x-api-key': token,
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          deviceId,
+          locale,
+        }),
+      });
+    } catch (err) {
+      console.error('[@lexiconjs/react] There was a problem registering the device...', err);
+    }
   },
 };
