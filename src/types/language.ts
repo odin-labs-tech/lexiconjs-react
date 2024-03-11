@@ -1,4 +1,4 @@
-/** All available languages */
+/** Available languages (this list is not exhaustive and can be @ts-ignored) */
 export type Language =
   | 'aa'
   | 'ab'
