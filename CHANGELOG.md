@@ -1,5 +1,11 @@
 # @lexiconjs/react
 
+## 2.2.2
+
+### Patch Changes
+
+- 7e77a7e: Handled special locale strings like @calendar=gregorian
+
 ## 2.2.1
 
 ### Patch Changes
